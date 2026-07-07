@@ -217,6 +217,21 @@ const PAGE_13_PART2_GRAMMAR_ITEMS = [
   { ID: 11, MODIFIER: "ไม่เอา ... ... (ก็)", THAI_CLEAN: "ไม่เอาทำก็", PHONETIC: "mâj aw tham kɔ̂ (မိုင်အောင်း...သမ်ကော)", MYANMAR: "မလုပ်ချင်", TITLE: "ไม่เอา ... ทำ(ก็)" }
 ];
 
+// Page 13 - Part 3: Clean modifier definitions for the Convergent Sentence Mapping
+const PAGE_13_PAGE3_MODIFIERS = [
+  { ID: 1, MODIFIER: "จะ", PHONETIC: "cà'", PHONETIC_MM: "ကျ", MYANMAR: "လုပ်မည်", THAI_CLEAN: "จะทำ" },
+  { ID: 2, MODIFIER: "อาจจะ... (ก็)", PHONETIC: "àat cà' ... kɔ̂", PHONETIC_MM: "အာတ်ကျ...ကော", MYANMAR: "လုပ်ကောင်းလုပ်မည်", THAI_CLEAN: "อาจจะทำก็" },
+  { ID: 3, MODIFIER: "กำลังจะ... (อยู่)", PHONETIC: "kam-laŋ cà' ... jùu", PHONETIC_MM: "ကမ်လန်းကျ...ယူ", MYANMAR: "လုပ်တော့မည်", THAI_CLEAN: "กำลังจะทำอยู่" },
+  { ID: 4, MODIFIER: "ควร จะ... (ก็)", PHONETIC: "khuuan cà' ... kɔ̂", PHONETIC_MM: "ခူဝမ်ကျ...ကော", MYANMAR: "လုပ်သင့်သည်", THAI_CLEAN: "ควรจะทำก็" },
+  { ID: 5, MODIFIER: "ต้อง... (ก็)", PHONETIC: "dtɔ̂ŋ ... kɔ̂", PHONETIC_MM: "တောင်...ကော", MYANMAR: "လုပ်ရမည်", THAI_CLEAN: "ต้องทำก็" },
+  { ID: 6, MODIFIER: "อยาก... (ก็)", PHONETIC: "jàak ... kɔ̂", PHONETIC_MM: "ယာတ်...ကော", MYANMAR: "လုပ်ချင်သည်", THAI_CLEAN: "อยากทำก็" },
+  { ID: 7, MODIFIER: "อย่า...", PHONETIC: "jàa", PHONETIC_MM: "ယာ", MYANMAR: "မလုပ်နှင့်", THAI_CLEAN: "อย่าทำ" },
+  { ID: 8, MODIFIER: "ไม่ ต้อง...", PHONETIC: "mâj dtɔ̂ŋ", PHONETIC_MM: "မိုင်တောင်", MYANMAR: "မလုပ်ရ", THAI_CLEAN: "ไม่ต้องทำ" },
+  { ID: 9, MODIFIER: "ไม่ควร ... (ก็)", PHONETIC: "mâj khuuan ... kɔ̂", PHONETIC_MM: "မိုင်ခူဝမ်...ကော", MYANMAR: "မလုပ်သင့်", THAI_CLEAN: "ไม่ควรทำก็" },
+  { ID: 10, MODIFIER: "ไม่ต้อง ... (ก็)", PHONETIC: "mâj dtɔ̂ŋ ... kɔ̂", PHONETIC_MM: "မိုင်တောင်...ကော", MYANMAR: "မလုပ်ရ", THAI_CLEAN: "ไม่ต้องทำก็" },
+  { ID: 11, MODIFIER: "ไม่เอา ... (ก็)", PHONETIC: "mâj aw ... kɔ̂", PHONETIC_MM: "မိုင်အောင်း...ကော", MYANMAR: "မလုပ်ချင်", THAI_CLEAN: "ไม่เอาทำก็" }
+];
+
 // Premium Grammar Lesson Sentence Builder Data
 const PREMIUM_VERBS = [
   { thai: "กิน", myanmar: "စားသည်", english: "eat" },
@@ -1047,10 +1062,14 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
                   {/* Handbook Header */}
                   <div className="text-center font-bold text-[14px] sm:text-[15px] text-stone-800 border-b border-stone-200/60 pb-2 mb-3 tracking-wide flex items-center justify-center gap-1.5">
                     <span className="text-[#3c3f9e] text-[15px] font-black">
-                      {sentencePage === 1 ? "จะ ကျ + ကြิယာ တွဲသုံးခြင်း" : "ทำ (လုပ်) စကားလုံး ဝါကျတွဲစည်းပုံ"}
+                      {sentencePage === 1 
+                        ? "จะ ကျ + ကြိယာ တွဲသုံးခြင်း" 
+                        : sentencePage === 2 
+                          ? "ทำ (လုပ်) စကားလုံး ဝါကျတွဲစည်းပုံ" 
+                          : "ทำ = လုပ် ဝါကျမြေပုံ (Sentence Mapping)"}
                     </span>
                     <span className="text-[10px] bg-stone-200/60 text-stone-600 px-2.5 py-0.5 rounded-full font-mono font-black">
-                      {sentencePage === 1 ? "Page 13" : "Page 13 - Part 2"}
+                      {sentencePage === 1 ? "Page 13" : sentencePage === 2 ? "Page 13 - Part 2" : "Page 13 - Part 3"}
                     </span>
                   </div>
 
@@ -1060,7 +1079,9 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
                     <span>
                       {sentencePage === 1 
                         ? "စကားလုံးများကို နှိပ်ပြီး \"will + verb\" အသံထွက် နားထောင်ပါ" 
-                        : "စကားလုံးများကို နှိပ်ပြီး \"ทำ = လုပ်\" စကားစုအသံထွက် နားထောင်ပါ"}
+                        : sentencePage === 2 
+                          ? "စကားလုံးများကို နှိပ်ပြီး \"ทำ = လုပ်\" စကားစုအသံထွက် နားထောင်ပါ"
+                          : "ဝါကျတည်ဆောက်ပုံမြေပုံကိုနှိပ်ပြီး \"ทำ = လုပ်\" အသံထွက် နားထောင်ပါ"}
                     </span>
                   </div>
 
@@ -1156,7 +1177,7 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
                           })}
                         </div>
                       </>
-                    ) : (
+                    ) : sentencePage === 2 ? (
                       <>
                         {/* PAGE 2 LAYOUT: ENDING SAME WORD ทำ = လုပ် */}
                         {/* SINGLE ANCHOR LEFT */}
@@ -1167,17 +1188,17 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
                             title="Click to play: ทำ (လုပ်)"
                           >
                             <span className="text-[11.5px]">ทำ</span>
-                            <span className="text-[9.5px] opacity-90 font-sans">လုပ်</span>
+                            <span className="text-[9.5px] opacity-90 font-sans">လုပ် (Verb)</span>
                           </div>
                         </div>
 
-                        {/* SVG CONNECTING PATHS FOR PAGE 2 */}
+                        {/* SVG CONNECTING PATHS FOR PART 2 */}
                         <svg className="absolute top-0 left-0 w-full h-[495px] pointer-events-none z-10 overflow-visible">
                           {PAGE_13_PART2_GRAMMAR_ITEMS.map((item, idx) => {
                             const xStart = 87;
                             const yStart = 247;
                             const xEnd = 153;
-                            const yEnd = idx * 46.7 + 14;
+                            const yEnd = idx * 43.8 + 12;
                             
                             return (
                               <path
@@ -1194,9 +1215,9 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
 
                           {PAGE_13_PART2_GRAMMAR_ITEMS.map((item, idx) => {
                             const xStart = 297;
-                            const yStart = idx * 46.7 + 14;
+                            const yStart = idx * 43.8 + 12;
                             const xEnd = 353;
-                            const yEnd = idx * 46.7 + 14;
+                            const yEnd = idx * 43.8 + 12;
                             
                             return (
                               <line
@@ -1261,62 +1282,205 @@ export const TextbookReader: React.FC<TextbookReaderProps> = ({ bookId, onClose 
                           })}
                         </div>
                       </>
+                    ) : (
+                      <>
+                        {/* PAGE 3 LAYOUT: ARROW ENDS IN SAME WORD - ทำ = လုပ် */}
+                        {/* LEFT Column: 11 modifiers */}
+                        <div className="absolute left-[8px] top-0 w-[130px] h-[495px] flex flex-col justify-between z-20">
+                          {PAGE_13_PAGE3_MODIFIERS.map((item, idx) => {
+                            const isSelected = activePage2Idx === idx;
+                            return (
+                              <div
+                                key={`mod3-${item.ID}`}
+                                onClick={() => {
+                                  triggerTTS(item.THAI_CLEAN);
+                                  setActivePage2Idx(idx);
+                                }}
+                                className={`group h-[28px] bg-white border rounded-xl flex items-center justify-between px-2 text-[10px] font-sans font-black cursor-pointer hover:bg-indigo-50 hover:border-[#6366F1] hover:text-[#6366F1] hover:scale-105 active:scale-95 transition-all shadow-3xs truncate select-none ${
+                                  isSelected ? 'border-indigo-600 bg-indigo-50/50 text-[#6366F1]' : 'border-stone-500/80 text-stone-900'
+                                }`}
+                                title={`Click to play: ${item.MODIFIER} + ทำ`}
+                              >
+                                <span className="text-[10.5px] font-black">{item.MODIFIER}</span>
+                                <div className="flex flex-col text-[7.5px] text-[#4f46e5]/85 font-bold font-mono text-right leading-none truncate max-w-[55px]">
+                                  <span className="truncate">{item.PHONETIC}</span>
+                                  <span className="text-[7px] text-stone-500 font-sans truncate">{item.PHONETIC_MM}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        {/* SINGLE TARGET CENTER CARD: ทำ = လုပ် */}
+                        <div className="absolute left-[180px] top-[225px] z-30">
+                          <div 
+                            onClick={() => triggerTTS("ทำ")}
+                            className="w-[110px] h-[45px] bg-[#FAF8F5] border-2 border-stone-600/95 rounded-2xl flex flex-col items-center justify-center text-[11px] font-black tracking-wide cursor-pointer hover:bg-[#6366F1] hover:text-white hover:border-[#6366F1] hover:scale-105 active:scale-95 transition-all shadow-xs text-stone-900 leading-tight"
+                            title="Click to play: ทำ (လုပ်)"
+                          >
+                            <span className="text-[13px] font-black text-stone-950">ทำ</span>
+                            <span className="text-[9.5px] font-sans text-stone-600 font-bold">လုပ် (Verb)</span>
+                          </div>
+                        </div>
+
+                        {/* SVG CONNECTING PATHS FOR PAGE 3 */}
+                        <svg className="absolute top-0 left-0 w-full h-[495px] pointer-events-none z-10 overflow-visible">
+                          {/* Left converging paths */}
+                          {PAGE_13_PAGE3_MODIFIERS.map((item, idx) => {
+                            const xStart = 138;
+                            const yStart = idx * 46.7 + 14;
+                            const xEnd = 180;
+                            const yEnd = 247.5;
+                            const isSelected = activePage2Idx === idx;
+                            
+                            return (
+                              <path
+                                key={`b3-l-${item.ID}`}
+                                d={`M ${xStart} ${yStart} C ${(xStart + xEnd) / 2} ${yStart}, ${(xStart + xEnd) / 2} ${yEnd}, ${xEnd} ${yEnd}`}
+                                fill="none"
+                                stroke={isSelected ? "#6366F1" : "#78716c"}
+                                strokeWidth={isSelected ? "2" : "1"}
+                                strokeLinecap="round"
+                                className={`transition-all duration-300 ${isSelected ? "opacity-100" : "opacity-35"}`}
+                              />
+                            );
+                          })}
+
+                          {/* Right diverging paths */}
+                          {PAGE_13_PAGE3_MODIFIERS.map((item, idx) => {
+                            const xStart = 290;
+                            const yStart = 247.5;
+                            const xEnd = 345;
+                            const yEnd = idx * 46.7 + 14;
+                            const isSelected = activePage2Idx === idx;
+                            
+                            return (
+                              <path
+                                key={`b3-r-${item.ID}`}
+                                d={`M ${xStart} ${yStart} C ${(xStart + xEnd) / 2} ${yStart}, ${(xStart + xEnd) / 2} ${yEnd}, ${xEnd} ${yEnd}`}
+                                fill="none"
+                                stroke={isSelected ? "#f43f5e" : "#a8a29e"}
+                                strokeWidth={isSelected ? "2" : "1"}
+                                strokeLinecap="round"
+                                className={`transition-all duration-300 ${isSelected ? "opacity-100" : "opacity-35"}`}
+                              />
+                            );
+                          })}
+                        </svg>
+
+                        {/* RIGHT Column: 11 translations */}
+                        <div className="absolute left-[345px] top-0 w-[145px] h-[495px] flex flex-col justify-between z-20">
+                          {PAGE_13_PAGE3_MODIFIERS.map((item, idx) => {
+                            const isSelected = activePage2Idx === idx;
+                            return (
+                              <div
+                                key={`m3-${item.ID}`}
+                                onClick={() => {
+                                  triggerTTS(item.THAI_CLEAN);
+                                  setActivePage2Idx(idx);
+                                }}
+                                className={`h-[28px] border rounded-xl flex items-center justify-center px-1 text-[10.5px] font-sans font-black cursor-pointer hover:bg-rose-50/80 hover:border-rose-500 hover:text-rose-600 hover:scale-105 active:scale-95 transition-all shadow-3xs truncate select-none leading-none ${
+                                  isSelected ? 'bg-rose-50 border-rose-500 text-rose-600' : 'bg-stone-50/50 border-stone-500/80 text-slate-800'
+                                }`}
+                                title={`${item.MODIFIER} + ทำ = ${item.MYANMAR}`}
+                              >
+                                <span className="truncate">{item.MYANMAR}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </>
                     )}
                   </div>
 
-                  {/* Interactive Pagination Controller */}
+                  {/* Active detailed translation card */}
+                  {activePage2Idx !== null && (
+                    <div className="bg-indigo-50 border border-indigo-150 rounded-2xl p-4 flex items-center justify-between shadow-2xs select-none">
+                      <div className="space-y-1">
+                        <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-indigo-500">Selected Phrase:</span>
+                        <div className="text-xl font-sans font-black text-[#583092]">
+                          {sentencePage === 2 
+                            ? PAGE_13_PART2_GRAMMAR_ITEMS[activePage2Idx]?.THAI_CLEAN 
+                            : PAGE_13_PAGE3_MODIFIERS[activePage2Idx]?.THAI_CLEAN}
+                        </div>
+                        <div className="text-xs font-sans font-bold text-stone-600">
+                          {sentencePage === 2 
+                            ? `${PAGE_13_PART2_GRAMMAR_ITEMS[activePage2Idx]?.TITLE} = ${PAGE_13_PART2_GRAMMAR_ITEMS[activePage2Idx]?.MYANMAR}`
+                            : `${PAGE_13_PAGE3_MODIFIERS[activePage2Idx]?.MODIFIER} + ทำ = ${PAGE_13_PAGE3_MODIFIERS[activePage2Idx]?.MYANMAR}`} 
+                          {sentencePage === 2
+                            ? ` (${PAGE_13_PART2_GRAMMAR_ITEMS[activePage2Idx]?.PHONETIC})`
+                            : ` (${PAGE_13_PAGE3_MODIFIERS[activePage2Idx]?.PHONETIC})`}
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => triggerTTS(
+                          sentencePage === 2 
+                            ? PAGE_13_PART2_GRAMMAR_ITEMS[activePage2Idx!]?.THAI_CLEAN 
+                            : PAGE_13_PAGE3_MODIFIERS[activePage2Idx!]?.THAI_CLEAN
+                        )}
+                        className="w-10 h-10 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white flex items-center justify-center shadow-xs cursor-pointer active:scale-95 transition-all"
+                      >
+                        <Volume2 className="w-5 h-5" />
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Pagination Controls for Blue Book */}
                   <div className="flex items-center justify-between pt-3 mt-1.5 border-t border-stone-200/40 select-none px-2">
                     <button
-                      onClick={() => setSentencePage(1)}
+                      onClick={() => {
+                        setSentencePage((p) => Math.max(1, p - 1));
+                        setActivePage2Idx(null);
+                      }}
                       disabled={sentencePage === 1}
                       className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10.5px] font-black transition-all cursor-pointer ${
                         sentencePage === 1
                           ? 'opacity-30 cursor-not-allowed text-stone-400'
-                          : 'text-[#3c3f9e] hover:bg-[#3c3f9e]/5 hover:scale-105'
+                          : 'text-indigo-600 hover:bg-indigo-50 hover:scale-105'
                       }`}
                     >
                       <ChevronLeft className="w-3.5 h-3.5" />
-                      <span>Will + Verb</span>
+                      <span>Prev</span>
                     </button>
                     
                     <div className="flex items-center gap-1.5">
-                      <button 
-                        onClick={() => setSentencePage(1)}
-                        className={`w-6 h-6 rounded-full text-[10.5px] font-black flex items-center justify-center transition-all cursor-pointer ${
-                          sentencePage === 1
-                            ? 'bg-[#3c3f9e] text-white shadow-xs'
-                            : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-                        }`}
-                      >
-                        1
-                      </button>
-                      <button 
-                        onClick={() => setSentencePage(2)}
-                        className={`w-6 h-6 rounded-full text-[10.5px] font-black flex items-center justify-center transition-all cursor-pointer ${
-                          sentencePage === 2
-                            ? 'bg-[#3c3f9e] text-white shadow-xs'
-                            : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-                        }`}
-                      >
-                        2
-                      </button>
+                      {[1, 2, 3].map((page) => (
+                        <button 
+                          key={page}
+                          onClick={() => {
+                            setSentencePage(page);
+                            setActivePage2Idx(null);
+                          }}
+                          className={`w-6 h-6 rounded-full text-[10.5px] font-black flex items-center justify-center transition-all cursor-pointer ${
+                            sentencePage === page
+                              ? 'bg-indigo-600 text-white shadow-xs'
+                              : 'bg-stone-100 text-slate-600 hover:bg-stone-200'
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      ))}
                     </div>
 
                     <button
-                      onClick={() => setSentencePage(2)}
-                      disabled={sentencePage === 2}
+                      onClick={() => {
+                        setSentencePage((p) => Math.min(3, p + 1));
+                        setActivePage2Idx(null);
+                      }}
+                      disabled={sentencePage === 3}
                       className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-[10.5px] font-black transition-all cursor-pointer ${
-                        sentencePage === 2
+                        sentencePage === 3
                           ? 'opacity-30 cursor-not-allowed text-stone-400'
-                          : 'text-[#3c3f9e] hover:bg-[#3c3f9e]/5 hover:scale-105'
+                          : 'text-indigo-600 hover:bg-indigo-50 hover:scale-105'
                       }`}
                     >
-                      <span>ทำ = လုပ်</span>
+                      <span>Next</span>
                       <ChevronRight className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
                 </div>
+
               </div>
             ) : (
               /* ================= PREMIUM INTERACTIVE GRAMMAR SENTENCE STRUCTURE ================= */
