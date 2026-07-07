@@ -1027,6 +1027,7 @@ export default function App() {
   const [activeEbookId, setActiveEbookId] = useState<string | null>(null);
   const [activeEbookLessonId, setActiveEbookLessonId] = useState<number>(1);
   const [authError, setAuthError] = useState<string>('');
+  const [authNotice, setAuthNotice] = useState<string>('');
   const [isAuthModalCoursePurchaseExpanded, setIsAuthModalCoursePurchaseExpanded] = useState<boolean>(false);
 
   // Custom Words Notebook state variables
@@ -2176,6 +2177,8 @@ startxref
     setHasDismissedPromo(true);
     sessionStorage.setItem('thai_has_dismissed_promo', 'true');
     setShowAuthModal(false);
+    setAuthNotice('');
+    setAuthError('');
   };
 
   // Compile all words from all lessons for the master dictionary grid
@@ -3663,7 +3666,16 @@ startxref
               </p>
               <button 
                 type="button"
-                onClick={() => setDashboardTab('bookstore')}
+                onClick={() => {
+                  if (!isLoggedIn) {
+                    setAuthTab('student-signup');
+                    setAuthNotice('To explore and unlock items in our Bookstore, we encourage you to sign up first! Create a free student account now to get started. 🛍️✨');
+                    setShowAuthModal(true);
+                  } else {
+                    setSelectedCourseTab('resources');
+                    setDashboardTab('lessons');
+                  }
+                }}
                 className="px-6 py-2.5 bg-gradient-to-r from-brand-purple to-brand-purple/95 text-white rounded-xl text-xs font-sans font-black uppercase tracking-wider hover:shadow-md cursor-pointer transition-all transform active:translate-y-0.5 border-b-4 border-brand-purple-shadow"
               >
                 🛍️ View Student Bookstore • စာအုပ်ဆိုင်သို့သွားရန်
@@ -12136,6 +12148,15 @@ startxref
                         </p>
                       </div>
 
+                      {authNotice && (
+                        <div className="bg-purple-50 border border-purple-100 p-2.5 rounded-xl mb-3 text-left shadow-3xs">
+                          <p className="text-[10px] font-sans font-black text-brand-purple leading-relaxed flex items-start gap-1">
+                            <span className="shrink-0 text-xs">🎁</span>
+                            <span>{authNotice}</span>
+                          </p>
+                        </div>
+                      )}
+
                       {/* Modal Tabs inside Auth Form */}
                       <div className="flex gap-1 p-0.5 bg-gray-50 rounded-lg border border-gray-100/80 mb-4 font-sans text-[9px] font-black">
                         <button 
@@ -12354,6 +12375,15 @@ startxref
                       အကောင့်ဝင်ပြီး သင်ခန်းစာများ လေ့လာပါ။
                     </p>
                   </div>
+
+                  {authNotice && (
+                    <div className="bg-purple-50 border border-purple-100 p-3.5 rounded-2xl mb-4 text-left shadow-2xs">
+                      <p className="text-[11px] font-sans font-black text-brand-purple leading-relaxed flex items-start gap-1.5">
+                        <span className="shrink-0 text-xs">🛍️</span>
+                        <span>{authNotice}</span>
+                      </p>
+                    </div>
+                  )}
 
                   {/* Modal Tabs inside Auth Form */}
                   <div className="flex gap-1 p-1 bg-gray-50 rounded-xl border border-gray-100/80 mb-5 font-sans text-[10px] sm:text-xs font-black">
