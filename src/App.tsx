@@ -970,7 +970,11 @@ export default function App() {
     return localStorage.getItem('thai_brand_logo_img') || '';
   });
   const [brandName, setBrandName] = useState<string>(() => {
-    return localStorage.getItem('thai_brand_name') || 'Thai Language Tutor';
+    const saved = localStorage.getItem('thai_brand_name');
+    if (!saved || saved === 'Thai Language Tutor') {
+      return 'SIRI Thai Language';
+    }
+    return saved;
   });
 
   useEffect(() => {
@@ -2646,8 +2650,8 @@ startxref
                   <h1 className="text-[12.5px] sm:text-[14px] font-sans font-black text-slate-800 tracking-tight leading-none uppercase select-none">
                     {brandName}
                   </h1>
-                  <p className="text-[8.5px] sm:text-[9.5px] text-brand-purple/90 font-sans font-bold tracking-wider uppercase mt-1 truncate">
-                    <span className="font-semibold text-slate-500">Myanmar Repat •</span> ထိုင်း-မြန်မာ အပြန်အလှန်လေ့လာရေး
+                  <p className="text-[8.5px] sm:text-[9.5px] text-brand-purple font-sans font-black tracking-wide mt-1 select-none">
+                    ထိုင်းဘာသာစကားသင်ကြားရေး
                   </p>
                 </div>
               </div>
@@ -8770,7 +8774,7 @@ startxref
                                   value={brandName}
                                   onChange={(e) => setBrandName(e.target.value)}
                                   className="w-full px-3 py-2.5 bg-white border-2 border-slate-200 focus:border-brand-purple rounded-xl font-sans font-extrabold text-sm text-slate-800 shadow-2xs leading-none"
-                                  placeholder="e.g. Thai Language Tutor"
+                                  placeholder="e.g. SIRI Thai Language"
                                 />
                               </div>
 
@@ -8861,7 +8865,7 @@ startxref
                                     </div>
                                     <div className="min-w-0 text-left">
                                       <h6 className="text-[10px] font-sans font-black text-slate-800 leading-none uppercase truncate">
-                                        {brandName || 'Thai Language Tutor'}
+                                        {brandName || 'SIRI Thai Language'}
                                       </h6>
                                       <span className="text-[7px] text-slate-400 font-sans font-bold uppercase mt-0.5 block tracking-wider">PREVIEW COMPONENT</span>
                                     </div>
