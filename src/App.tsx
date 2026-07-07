@@ -18,6 +18,7 @@ import { OrderDetailModal } from './components/OrderDetailModal';
 import { VOCAB_DATA, VocabCategory, VocabItem } from './data/vocab';
 import { VocabPage } from './components/VocabPage';
 import { TextbookReader } from './components/TextbookReader';
+import { PeacockLogo } from './components/PeacockLogo';
 import { 
   BookOpen, 
   Award, 
@@ -2626,18 +2627,17 @@ startxref
             {/* Left: Brand Logo & Title + Mobile Actions Row */}
             <div className="flex items-center justify-between w-full lg:w-auto gap-4">
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-11 h-11 bg-slate-950 border border-slate-800 text-white rounded-2xl flex items-center justify-center font-sans font-black text-xs shrink-0 select-none shadow-md relative overflow-hidden group">
+                <div className="w-14 h-14 bg-white border border-slate-200/85 rounded-2xl flex items-center justify-center shrink-0 select-none shadow-xs relative overflow-hidden group p-0.5">
                   {brandLogoImg ? (
                     <img 
                       src={brandLogoImg} 
                       alt={brandName} 
-                      className="w-full h-full object-cover relative z-10" 
+                      className="w-full h-full object-cover relative z-10 rounded-xl" 
                       referrerPolicy="no-referrer" 
                     />
                   ) : (
-                    <span className="relative z-10 font-sans font-extrabold bg-gradient-to-tr from-cyan-400 via-brand-purple to-pink-300 bg-clip-text text-transparent transform group-hover:scale-105 transition-transform">{brandLogoText}</span>
+                    <PeacockLogo className="w-12 h-12 relative z-10 transform group-hover:scale-105 transition-transform duration-300" />
                   )}
-                  <div className="absolute inset-x-0 bottom-0 h-[2px] bg-brand-purple" />
                 </div>
                 <div className="min-w-0 text-left">
                   <h1 className="text-[12.5px] sm:text-[14px] font-sans font-black text-slate-800 tracking-tight leading-none uppercase select-none">
@@ -8835,16 +8835,16 @@ startxref
                                 {/* Top Banner Simulation */}
                                 <div className="border border-slate-100/80 p-2.5 rounded-xl bg-slate-50/50">
                                   <div className="flex items-center gap-2.5">
-                                    <div className="w-8 h-8 rounded-lg flex items-center justify-center font-sans font-black text-[9px] shrink-0 text-white relative overflow-hidden" style={{ backgroundColor: brandColor }}>
+                                    <div className="w-11 h-11 bg-white border border-slate-200/80 rounded-xl flex items-center justify-center shrink-0 relative overflow-hidden p-0.5">
                                       {brandLogoImg ? (
                                         <img 
                                           src={brandLogoImg} 
                                           alt="Preview" 
-                                          className="w-full h-full object-cover relative z-10" 
+                                          className="w-full h-full object-cover relative z-10 rounded-lg" 
                                           referrerPolicy="no-referrer" 
                                         />
                                       ) : (
-                                        <span className="relative z-10 font-sans font-extrabold uppercase">{brandLogoText || 'TH'}</span>
+                                        <PeacockLogo className="w-9 h-9 relative z-10" />
                                       )}
                                     </div>
                                     <div className="min-w-0 text-left">
